@@ -1,5 +1,7 @@
 # This is under development
 
+Read about dreamcode here: http://nobackend.org/dreamcode.html
+
 ## The concept
 
 The concept is to bring the Dreamcode idea to GWT (Java).
