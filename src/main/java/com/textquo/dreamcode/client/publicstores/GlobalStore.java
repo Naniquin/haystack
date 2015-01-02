@@ -24,12 +24,14 @@ package com.textquo.dreamcode.client.publicstores;
 import com.google.gwt.core.client.GWT;
 import com.textquo.dreamcode.client.DreamcodeCallback;
 import com.textquo.dreamcode.client.Routes;
+import com.textquo.dreamcode.client.utils.JsniHelper;
 import com.textquo.dreamcode.client.utils.JsonHelper;
 import com.textquo.dreamcode.shared.entities.DreamObject;
 import org.restlet.client.Request;
 import org.restlet.client.Response;
 import org.restlet.client.Uniform;
 import org.restlet.client.data.MediaType;
+import org.restlet.client.data.Status;
 import org.restlet.client.resource.ClientResource;
 import org.restlet.client.resource.Result;
 
@@ -48,13 +50,19 @@ public class GlobalStore {
         resource.setOnResponse(new Uniform() {
             public void handle(Request request, Response response) {
                 try {
-                    String jsonResponse = response.getEntity().getText();
-                    callback.success(jsonResponse);
+                    Status status = response.getStatus();
+                    if(!Status.isError(status.getCode())){
+                        String jsonResponse = response.getEntity().getText();
+                        callback.success(jsonResponse);
+                    } else {
+                        callback.failure(new Throwable("Error: " + status.getCode()));
+                    }
                 } catch (Exception e){
                     callback.failure(new Throwable(e.getMessage()));
                 }
             }
         });
+        JsniHelper.consoleLog("Adding object id=" + id + " type=" + type + " data=" + jsonObject);
         resource.getReference().addQueryParameter("type", type);
         resource.getReference().addQueryParameter("id",id);
         resource.post(jsonObject, MediaType.APPLICATION_JSON);
@@ -65,16 +73,20 @@ public class GlobalStore {
         resource.setOnResponse(new Uniform() {
             public void handle(Request request, Response response) {
                 try {
-                    String jsonResponse = response.getEntity().getText();
-                    callback.success(jsonResponse);
+                    Status status = response.getStatus();
+                    if (!Status.isError(status.getCode())) {
+                        String jsonResponse = response.getEntity().getText();
+                        callback.success(jsonResponse);
+                    } else {
+                        callback.failure(new Throwable("Error: " + status.getCode()));
+                    }
                 } catch (Exception e) {
-                    e.printStackTrace();
                     callback.failure(new Throwable(e.getMessage()));
                 }
             }
         });
         resource.getReference().addQueryParameter("type", type);
-        resource.getReference().addQueryParameter("id",id);
+        resource.getReference().addQueryParameter("id", id);
         resource.get(MediaType.APPLICATION_JSON);
     }
 

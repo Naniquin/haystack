@@ -56,9 +56,9 @@ public class DreamcodeApplication extends Application {
             dreamcodeProperties().get("admin.pass").toCharArray());
 
     // Create a guard
-    ChallengeAuthenticator guard = new ChallengeAuthenticator(
-    getContext(), ChallengeScheme.HTTP_BASIC, "A custom challenge authentication scheme.");
-    guard.setVerifier(verifier);
+    //ChallengeAuthenticator guard = new ChallengeAuthenticator(
+    //getContext(), ChallengeScheme.HTTP_BASIC, "A custom challenge authentication scheme.");
+    //guard.setVerifier(verifier);
 
     Router router = new Router(getContext());
     router.attach(ROOT_URI, RootServerResource.class);
@@ -71,9 +71,10 @@ public class DreamcodeApplication extends Application {
 //    router.attach(ROOT_URI + "share/{id}/stores", ShareStoreServerResource.class);
 //    router.attach(ROOT_URI + "store/{id}", ShareStoreServerResource.class);
 //    router.attach(ROOT_URI + "task/{id}", TaskServerResource.class);
-    guard.setNext(router);
+//    guard.setNext(router);
 
-    return guard;
+//    return guard;
+    return router;
   }
 
   private Map<String,String> dreamcodeProperties(){

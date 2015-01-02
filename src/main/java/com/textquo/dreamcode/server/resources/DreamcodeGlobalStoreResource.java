@@ -67,6 +67,8 @@ public class DreamcodeGlobalStoreResource extends ServerResource {
         }
         String id = String.valueOf(getAttribute("id"));
         String type = String.valueOf(getAttribute("type"));
+        Preconditions.checkNotNull(type);
+        Preconditions.checkNotNull(entity);
         //String namespace = getQueryValue("namespace");
         try{
             if(id==null || id.isEmpty() || id.equals("null") || id.equals("NULL")){
@@ -84,7 +86,9 @@ public class DreamcodeGlobalStoreResource extends ServerResource {
             Preconditions.checkNotNull(jsonText);
             DreamObject dreamObject = new DreamObject(Long.valueOf(id), type, jsonText);
             store().put(dreamObject);
+            setStatus(Status.SUCCESS_OK);
         } catch (Exception e){
+            setStatus(Status.SERVER_ERROR_INTERNAL);
             e.printStackTrace();
         } finally {
 
@@ -111,7 +115,9 @@ public class DreamcodeGlobalStoreResource extends ServerResource {
         try{
             Iterator<DreamObject> it
                     = store().find(DreamObject.class, type).equal("id", id).now();
+            setStatus(Status.SUCCESS_OK);
         } catch (Exception e){
+            setStatus(Status.SERVER_ERROR_INTERNAL);
             e.printStackTrace();
         } finally {
 

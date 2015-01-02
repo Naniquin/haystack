@@ -22,7 +22,7 @@
 package com.textquo.dreamcode.client;
 
 public class Routes {
-    public static String DREAMCODE_API      = "/dreamcode";
+    public static String DREAMCODE_API      = "";
     public static String ACCOUNTS_API       = "/accounts";
     public static String EMAILS_API         = "/emails";
     public static String STORES_API         = "/stores";
