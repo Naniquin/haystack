@@ -21,7 +21,12 @@
  */
 package com.textquo.dreamcode.client.utils;
 
-import com.google.gwt.json.client.*;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONString;
+import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.json.client.JSONException;
+
 import java.util.HashMap;
 import java.util.Map;
 
