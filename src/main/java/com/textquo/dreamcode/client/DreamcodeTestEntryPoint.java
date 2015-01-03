@@ -6,7 +6,7 @@ import com.google.gwt.user.client.Window;
 public class DreamcodeTestEntryPoint implements EntryPoint {
     public void onModuleLoad() {
         Dreamcode dreamcode = new Dreamcode();
-        dreamcode.globalStore().add("Test", "null", "{'content' : 'test'}", new DreamcodeCallback() {
+        dreamcode.globalStore().add("Test", "test123", "{\"content\" : \"A sample content\"}", new DreamcodeCallback() {
             public void success(Object result) {
                 log("Globalstore add() Callback Success: " + result);
 

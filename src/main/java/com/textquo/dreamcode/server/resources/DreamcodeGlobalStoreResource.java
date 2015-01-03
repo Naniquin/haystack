@@ -25,6 +25,7 @@ import com.google.appengine.repackaged.com.google.common.base.Preconditions;
 import com.textquo.dreamcode.server.JSONHelper;
 import com.textquo.dreamcode.server.services.ShardedCounterService;
 import com.textquo.dreamcode.shared.entities.DreamObject;
+import com.textquo.twist.GaeObjectStore;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.restlet.data.MediaType;
@@ -59,12 +60,18 @@ public class DreamcodeGlobalStoreResource extends ServerResource {
             getResponseAttributes().put(HeaderConstants.ATTRIBUTE_HEADERS,
                     responseHeaders);
         }
-        String id = String.valueOf(getAttribute("id"));
-        String type = String.valueOf(getAttribute("type"));
-        Preconditions.checkNotNull(type);
-        Preconditions.checkNotNull(entity);
+        String id = String.valueOf(getQueryValue("id"));
+        String type = String.valueOf(getQueryValue("type"));
+        Preconditions.checkNotNull(type, "Object type cannot be null");
+        Preconditions.checkNotNull(entity, "Object cannot be null");
+        LOG.info("Object type=" + type);
+        LOG.info("Object id=" + id);
         //String namespace = getQueryValue("namespace");
         try{
+            JsonRepresentation represent = new JsonRepresentation(entity);
+            JSONObject jsonobject = represent.getJsonObject();
+            String jsonText = jsonobject.toString();
+
             if(id==null || id.isEmpty() || id.equals("null") || id.equals("NULL")){
                 shardCounterService = new ShardedCounterService();
                 shardCounterService.incrementCounter(type);
@@ -72,14 +79,9 @@ public class DreamcodeGlobalStoreResource extends ServerResource {
                 LOG.info("Generated from sharded counter: " + count);
                 id = String.valueOf(count);
             }
-            JsonRepresentation represent = new JsonRepresentation(entity);
-            JSONObject jsonobject = represent.getJsonObject();
-            String jsonText = jsonobject.toString();
-            Preconditions.checkNotNull(id);
-            Preconditions.checkNotNull(type);
-            Preconditions.checkNotNull(jsonText);
-            //DreamObject dreamObject = new DreamObject(Long.valueOf(id), type, jsonText);
             Map<String,Object> dreamObject = JSONHelper.parseJson(jsonText);
+            dreamObject.put("__key__", id);
+            dreamObject.put("__kind__", type);
             store().put(dreamObject);
             setStatus(Status.SUCCESS_OK);
         } catch (ParseException e){

@@ -22,7 +22,14 @@
 package com.textquo.dreamcode.client.publicstores;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.http.client.RequestBuilder;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
 import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.jsonp.client.JsonpRequestBuilder;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.textquo.dreamcode.client.DreamcodeCallback;
 import com.textquo.dreamcode.client.Routes;
 import com.textquo.dreamcode.client.utils.JsniHelper;
@@ -47,30 +54,51 @@ public class GlobalStore {
      * @param callback
      */
     public void add(String type, String id, String jsonObject, final DreamcodeCallback callback){
-        final ClientResource resource = new ClientResource(Routes.DREAMCODE_API + Routes.PUBLIC_STORE_API);
-        resource.setOnResponse(new Uniform() {
-            public void handle(Request request, Response response) {
-                try {
-                    Status status = response.getStatus();
-                    if (!Status.isError(status.getCode())) {
-                        String jsonResponse = response.getEntity().getText();
+        String url = Routes.DREAMCODE_API + Routes.PUBLIC_STORE_API + "?type=" + type + "&id=" + id;
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
+        try{
+            builder.setHeader("content-type", "application/json");
+            builder.sendRequest(jsonObject, new RequestCallback() {
+                public void onResponseReceived(com.google.gwt.http.client.Request request, com.google.gwt.http.client.Response response) {
+                    String jsonResponse = response.getText();
+                    if(response.getStatusCode() == com.google.gwt.http.client.Response.SC_OK){
                         callback.success(jsonResponse);
                     } else {
-                        callback.failure(new Throwable("Error: " + status.getCode()));
+                        callback.failure(new Throwable("Error: " + response.getStatusCode()));
                     }
-                } catch (Exception e) {
-                    callback.failure(new Throwable(e.getMessage()));
                 }
-            }
-        });
-        JsniHelper.consoleLog("Adding object id=" + id + " type=" + type + " data=" + jsonObject);
-        if(JsonHelper.isValid(jsonObject)){
-            resource.getReference().addQueryParameter("type", type);
-            resource.getReference().addQueryParameter("id",id);
-            resource.post(jsonObject, MediaType.APPLICATION_JSON);
-        } else {
-            callback.failure(new Throwable("Invalid JSON object"));
+                public void onError(com.google.gwt.http.client.Request request, Throwable throwable) {
+                    callback.failure(throwable);
+                }
+            });
+        } catch (RequestException e){
+            callback.failure(new Throwable(e.getMessage()));
         }
+        // TODO: Make this code below work:
+//        ClientResource resource = new ClientResource(Routes.DREAMCODE_API + Routes.PUBLIC_STORE_API);
+//        resource.setOnResponse(new Uniform() {
+//            public void handle(Request request, Response response) {
+//                try {
+//                    Status status = response.getStatus();
+//                    if (!Status.isError(status.getCode())) {
+//                        String jsonResponse = response.getEntity().getText();
+//                        callback.success(jsonResponse);
+//                    } else {
+//                        callback.failure(new Throwable("Error: " + status.getCode()));
+//                    }
+//                } catch (Exception e) {
+//                    callback.failure(new Throwable(e.getMessage()));
+//                }
+//            }
+//        });
+//        JsniHelper.consoleLog("Adding object id=" + id + " type=" + type + " data=" + jsonObject);
+//        if(JsonHelper.isValid(jsonObject)){
+//            resource.getReference().addQueryParameter("type", type);
+//            resource.getReference().addQueryParameter("id",id);
+//            resource.post(jsonObject, MediaType.APPLICATION_JSON);
+//        } else {
+//            callback.failure(new Throwable("Invalid JSON object"));
+//        }
     }
 
     public void find(String type, String id, final DreamcodeCallback callback){
