@@ -22,16 +22,10 @@
 package com.textquo.dreamcode.server.resources;
 
 import com.google.appengine.repackaged.com.google.common.base.Preconditions;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.textquo.dreamcode.client.utils.JsonHelper;
 import com.textquo.dreamcode.server.JSONHelper;
 import com.textquo.dreamcode.server.services.ShardedCounterService;
 import com.textquo.dreamcode.shared.entities.DreamObject;
 import org.json.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.ContainerFactory;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.restlet.data.MediaType;
 import org.restlet.representation.Representation;
@@ -41,14 +35,11 @@ import org.restlet.data.Status;
 import org.restlet.engine.header.Header;
 import org.restlet.engine.header.HeaderConstants;
 import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.Representation;
-import org.restlet.representation.StringRepresentation;
 import org.restlet.util.Series;
 
 import java.util.*;
 import java.util.logging.Logger;
 
-import static org.boon.Boon.fromJson;
 import static com.textquo.twist.ObjectStoreService.store;
 
 public class DreamcodeGlobalStoreResource extends ServerResource {
