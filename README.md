@@ -1,5 +1,7 @@
 # This is under development
 
+Read about dreamcode here: http://nobackend.org/dreamcode.html
+
 ## The concept
 
 The concept is to bring the Dreamcode idea to GWT (Java).
@@ -8,7 +10,8 @@ The concept is to bring the Dreamcode idea to GWT (Java).
 
 ####GWT Library
 
-- This is the Dreamcode library that connects to the GAE Dreamcode App.
+- This is the GWT Dreamcode library that connects to the GAE Dreamcode App.
+- The GWT Dreamcode library is intended also to be compiled to plain Javascript usable to non-GWT projects
 
 ####Dreamcode App
 
