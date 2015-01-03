@@ -22,7 +22,10 @@
 package com.textquo.dreamcode.server.resources;
 
 import com.google.appengine.repackaged.com.google.common.base.Preconditions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.textquo.dreamcode.client.utils.JsonHelper;
+import com.textquo.dreamcode.server.JSONHelper;
 import com.textquo.dreamcode.server.services.ShardedCounterService;
 import com.textquo.dreamcode.shared.entities.DreamObject;
 import org.json.JSONObject;
@@ -84,9 +87,13 @@ public class DreamcodeGlobalStoreResource extends ServerResource {
             Preconditions.checkNotNull(id);
             Preconditions.checkNotNull(type);
             Preconditions.checkNotNull(jsonText);
-            DreamObject dreamObject = new DreamObject(Long.valueOf(id), type, jsonText);
+            //DreamObject dreamObject = new DreamObject(Long.valueOf(id), type, jsonText);
+            Map<String,Object> dreamObject = JSONHelper.parseJson(jsonText);
             store().put(dreamObject);
             setStatus(Status.SUCCESS_OK);
+        } catch (ParseException e){
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            e.printStackTrace();
         } catch (Exception e){
             setStatus(Status.SERVER_ERROR_INTERNAL);
             e.printStackTrace();

@@ -22,6 +22,7 @@
 package com.textquo.dreamcode.client.publicstores;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.json.client.JSONParser;
 import com.textquo.dreamcode.client.DreamcodeCallback;
 import com.textquo.dreamcode.client.Routes;
 import com.textquo.dreamcode.client.utils.JsniHelper;
@@ -51,21 +52,25 @@ public class GlobalStore {
             public void handle(Request request, Response response) {
                 try {
                     Status status = response.getStatus();
-                    if(!Status.isError(status.getCode())){
+                    if (!Status.isError(status.getCode())) {
                         String jsonResponse = response.getEntity().getText();
                         callback.success(jsonResponse);
                     } else {
                         callback.failure(new Throwable("Error: " + status.getCode()));
                     }
-                } catch (Exception e){
+                } catch (Exception e) {
                     callback.failure(new Throwable(e.getMessage()));
                 }
             }
         });
         JsniHelper.consoleLog("Adding object id=" + id + " type=" + type + " data=" + jsonObject);
-        resource.getReference().addQueryParameter("type", type);
-        resource.getReference().addQueryParameter("id",id);
-        resource.post(jsonObject, MediaType.APPLICATION_JSON);
+        if(JsonHelper.isValid(jsonObject)){
+            resource.getReference().addQueryParameter("type", type);
+            resource.getReference().addQueryParameter("id",id);
+            resource.post(jsonObject, MediaType.APPLICATION_JSON);
+        } else {
+            callback.failure(new Throwable("Invalid JSON object"));
+        }
     }
 
     public void find(String type, String id, final DreamcodeCallback callback){

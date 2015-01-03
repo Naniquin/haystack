@@ -21,14 +21,9 @@
  */
 package com.textquo.dreamcode.client.utils;
 
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONParser;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.json.client.JSONValue;
-import org.json.simple.parser.ContainerFactory;
-import org.json.simple.parser.ParseException;
-
-import java.util.*;
+import com.google.gwt.json.client.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JsonHelper {
     public static String toJson(Map<String, String> map) {
@@ -57,31 +52,15 @@ public class JsonHelper {
         return map;
     }
 
-    public static Map<String,Object>  parseJson(String jsonText){
-        Map<String,Object> json = null;
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        ContainerFactory containerFactory = new ContainerFactory(){
-            public List creatArrayContainer() {
-                return new LinkedList();
-            }
-            public Map createObjectContainer() {
-                return new LinkedHashMap();
-            }
-        };
-        try{
-            json = (Map<String,Object> )parser.parse(jsonText, containerFactory);
-            Iterator iter = json.entrySet().iterator();
-            //LOG.info("==iterate result==");
-            while(iter.hasNext()){
-                Map.Entry entry = (Map.Entry)iter.next();
-                //LOG.info(entry.getKey() + "=>" + entry.getValue());
-            }
-            //LOG.info("==toJSONString()==");
-            //LOG.info(org.json.simple.JSONValue.toJSONString(json));
+    public static boolean isValid(String json){
+        try {
+            JSONParser.parseStrict(json);
+        } catch (JSONException e) {
+            return false;
+        } catch (Exception e){
+            return false;
         }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return json;
+        return true;
     }
+
 }
