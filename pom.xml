@@ -146,15 +146,14 @@
 		</dependency>
 		<!-- Testing -->
 		<dependency>
-			<groupId>com.googlecode.gwt-test-utils</groupId>
-			<artifactId>gwt-test-utils</artifactId>
-			<version>0.47</version>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-appengine</artifactId>
+			<version>1.19.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8</version>
-			<scope>test</scope>
+			<version>3.8.2</version>
 		</dependency>
 	</dependencies>
 
@@ -264,47 +263,23 @@
 		<profile>
 			<id>test</id>
 			<build>
-				<!-- Compiled java classes and all the resources get dumped into target/${webappDirectory}/WEB-INF/classes during the build -->
-				<!--<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>-->
 				<resources>
 					<resource>
 						<directory>src/main/resources</directory>
-					</resource>
-					<resource>
-						<!-- the java source files must be on the classpath during gwt:compile -->
-						<directory>src/main/java</directory>
-					</resource>
-					<resource>
-						<!-- the java source files that override/emulate server-side classes in the client must be on the classpath during gwt:compile -->
-						<directory>src/main/super</directory>
+						<filtering>true</filtering>
+						<includes>
+							<include>**/*.properties</include>
+							<include>**/*.xml</include>
+						</includes>
 					</resource>
 				</resources>
-				<testResources>
-					<testResource>
-						<directory>src/test/resources</directory>
-					</testResource>
-				</testResources>
 				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<configuration>
-							<source>1.5</source>
-							<target>1.5</target>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>com.google.appengine</groupId>
 						<artifactId>appengine-maven-plugin</artifactId>
 						<version>${gae.version}</version>
 						<configuration>
 							<enableJarClasses>false</enableJarClasses>
-							<jvmFlags>
-								<jvmFlag>-Xdebug</jvmFlag>
-								<jvmFlag>-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y
-								</jvmFlag>
-							</jvmFlags>
-							<disableUpdateCheck>true</disableUpdateCheck>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -323,7 +298,7 @@
 						<configuration>
 							<modules>
 								<!-- gwt module inherits Core gwt module therefore both will be gwt:compiled -->
-								<module>com.textquo.dreamcode.DreamcodeTestEntryPoint</module>
+								<module>com.textquo.dreamcode.Dreamcode</module>
 							</modules>
 							<logLevel>DEBUG</logLevel>
 							<!--<logLevel>WARN</logLevel>-->
@@ -331,11 +306,8 @@
 							<appEngineVersion>${gae.version}</appEngineVersion>
 							<!-- tell the gwt plugin that the webapp source resides in src/main/webapp -->
 							<webappDirectory>${webappDirectory}</webappDirectory>
-							<!--<webappDirectory>src/test/webapp</webappDirectory>-->
-
 							<!-- tell the gwt plugin that dev mode should be run using the webapp that resides in target/${webappDirectory} -->
 							<hostedWebapp>${webappDirectory}</hostedWebapp>
-							<!--<hostedWebapp>src/test/webapp</hostedWebapp>-->
 							<!-- Normally the gwt maven plugin executes dev mode using a builtin jetty server.
                                    This config property instructs the gwt maven plugin to execute dev mode using the
                                    jetty server supplied by the appengine sdk. -->
@@ -343,28 +315,15 @@
 						</configuration>
 					</plugin>
 					<plugin>
-						<!-- Copies static web files from src/main/webapp to target/${webappDirectory} -->
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
-						<executions>
-							<execution>
-								<!-- the exploded goal gets executed during compile phase -->
-								<phase>compile</phase>
-								<goals>
-									<goal>exploded</goal>
-									<!--<goal>war</goal>-->
-								</goals>
-							</execution>
-						</executions>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.8.1</version>
 						<configuration>
-							<!--<failOnMissingWebXml>false</failOnMissingWebXml> -->
-							<warName>${project.artifactId}</warName>
-							<!--Exclude GWT client local classes from the deployment, lest classpath scanners such as Hibernate and Weld get confused when the webapp is bootstrapping. -->
-							<!--<packagingExcludes>**/javax/**/*.*,**/client/local/**/*.class</packagingExcludes> -->
-							<!--<warSourceExcludes>WEB-INF/web.xml</warSourceExcludes>             -->
-							<!-- the exploded war structure ends up in target/${webappDirectory} -->
-							<webappDirectory>${webappDirectory}</webappDirectory>
+							<additionalClasspathElements>
+								<additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
+								<additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
+							</additionalClasspathElements>
+							<useManifestOnlyJar>false</useManifestOnlyJar>
+							<forkMode>always</forkMode>
 						</configuration>
 					</plugin>
 				</plugins>

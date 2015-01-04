@@ -2,21 +2,19 @@ package com.textquo.dreamcode;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-//import org.junit.After;
-//import org.junit.Before;
-//import org.junit.Test;
+import junit.framework.TestCase;
 
-public class LocalDatastoreTest {
+public class LocalDatastoreTest extends TestCase {
     private final LocalServiceTestHelper helper =
             new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
-    //@Before
-    public void setUp() {
+    @Override
+    public void setUp() throws Exception {
         helper.setUp();
     }
 
-    //@After
-    public void tearDown() {
+    @Override
+    public void tearDown() throws Exception {
         helper.tearDown();
     }
 
