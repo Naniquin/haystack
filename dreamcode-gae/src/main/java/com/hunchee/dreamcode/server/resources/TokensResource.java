@@ -31,5 +31,5 @@ import org.restlet.resource.Get;
  */
 public interface TokensResource {
     @Get
-    public User verify();
+    public String getToken();
 }

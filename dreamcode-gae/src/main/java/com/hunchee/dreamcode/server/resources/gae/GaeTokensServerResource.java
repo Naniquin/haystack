@@ -70,7 +70,7 @@ public class GaeTokensServerResource extends SelfInjectingServerResource
     }
 
     @Override
-    public User verify() {
+    public String getToken() {
         //LOG.info("Authorization: " + authValue);
         if(email != null
                 && password != null
@@ -82,7 +82,7 @@ public class GaeTokensServerResource extends SelfInjectingServerResource
                 LOG.info("Password: " + password);
                 if(BCrypt.checkpw(password, passwordHash)){
                     //user.setClientToken(webTokenService.createToken(user.getId()));
-                    return user;
+                    return webTokenService.createToken(user.getId());
                 } else {
                     setStatus(Status.CLIENT_ERROR_UNAUTHORIZED, "Email and/or password is invalid");
                 }
