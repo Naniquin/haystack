@@ -31,9 +31,8 @@ import com.hunchee.dreamcode.client.stores.Store;
  */
 public class Dreamcode {
 
-    private static String serverRoot = ""; // e.g. http://dreamcode.appspot.com
+    private static String serverRoot = "/rest"; // e.g. http://dreamcode.appspot.com
     private static String clientToken = "";
-    private static Boolean connected;
 
     public Dreamcode(){}
 
@@ -43,14 +42,6 @@ public class Dreamcode {
 
     public static String getServerRoot() {
         return serverRoot;
-    }
-
-    public static Boolean getConnected() {
-        return connected;
-    }
-
-    public static void setConnected(Boolean connected) {
-        Dreamcode.connected = connected;
     }
 
     public static String getClientToken() {
