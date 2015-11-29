@@ -36,7 +36,7 @@ import com.google.appengine.repackaged.org.apache.commons.fileupload.servlet.Ser
 import com.google.appengine.repackaged.org.apache.commons.fileupload.servlet.ServletRequestContext;
 import com.google.appengine.tools.cloudstorage.*;
 import com.google.inject.Inject;
-import com.hunchee.dreamcode.client.entity.User;
+import com.hunchee.dreamcode.client.User;
 import com.hunchee.dreamcode.server.guice.SelfInjectingServerResource;
 import com.hunchee.dreamcode.server.resources.FileResource;
 import com.hunchee.dreamcode.server.services.UserService;

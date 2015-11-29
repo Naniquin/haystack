@@ -22,8 +22,8 @@
 package com.hunchee.dreamcode.server.services.gae;
 
 import com.hunchee.twist.types.ListResult;
-import com.hunchee.dreamcode.client.entity.User;
-import com.hunchee.dreamcode.client.entity.Users;
+import com.hunchee.dreamcode.client.User;
+import com.hunchee.dreamcode.client.Users;
 import com.hunchee.dreamcode.server.services.UserService;
 
 import java.util.Date;

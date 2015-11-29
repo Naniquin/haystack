@@ -22,9 +22,9 @@
 package com.hunchee.dreamcode.server.services;
 
 import com.google.appengine.api.datastore.Key;
-import com.hunchee.dreamcode.client.entity.Registration;
-import com.hunchee.dreamcode.client.entity.Registrations;
-import com.hunchee.dreamcode.client.entity.User;
+import com.hunchee.dreamcode.client.Registration;
+import com.hunchee.dreamcode.client.Registrations;
+import com.hunchee.dreamcode.client.User;
 
 /**
  * @author <a href="mailto:kerby@dotweblabs.com">Kerby Martino</a>

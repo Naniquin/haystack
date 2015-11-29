@@ -1,4 +1,4 @@
-package com.hunchee.dreamcode.client.entity;
+package com.hunchee.dreamcode.client;
 
 import com.hunchee.dreamcode.client.DreamcodeObject;
 import com.hunchee.dreamcode.client.entity.annotations.DreamObject;

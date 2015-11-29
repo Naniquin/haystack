@@ -21,7 +21,7 @@
  */
 package com.hunchee.dreamcode.server.resources;
 
-import com.hunchee.dreamcode.client.entity.User;
+import com.hunchee.dreamcode.client.User;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;

@@ -21,8 +21,8 @@
  */
 package com.hunchee.dreamcode.server.resources;
 
-import com.hunchee.dreamcode.client.entity.Registration;
-import com.hunchee.dreamcode.client.entity.Registrations;
+import com.hunchee.dreamcode.client.Registration;
+import com.hunchee.dreamcode.client.Registrations;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 

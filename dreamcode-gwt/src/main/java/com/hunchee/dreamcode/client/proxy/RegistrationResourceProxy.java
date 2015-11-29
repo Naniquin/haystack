@@ -21,7 +21,7 @@
  */
 package com.hunchee.dreamcode.client.proxy;
 
-import com.hunchee.dreamcode.client.entity.Registration;
+import com.hunchee.dreamcode.client.Registration;
 import org.restlet.client.resource.ClientProxy;
 import org.restlet.client.resource.Post;
 import org.restlet.client.resource.Result;

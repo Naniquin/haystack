@@ -23,7 +23,6 @@ package com.hunchee.dreamcode.client.account;
 
 import com.hunchee.dreamcode.client.AbstractDreamcode;
 import com.hunchee.dreamcode.client.DreamcodeCallback;
-import com.hunchee.dreamcode.client.entity.Registration;
 
 /**
  * @author <a href="mailto:kerby@dotweblabs.com">Kerby Martino</a>

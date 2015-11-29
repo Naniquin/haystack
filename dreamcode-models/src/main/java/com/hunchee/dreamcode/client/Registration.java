@@ -19,7 +19,7 @@
  * |_____|__| |_____|___._|__|__|__|____|_____|_____|_____|
  *
  */
-package com.hunchee.dreamcode.client.entity;
+package com.hunchee.dreamcode.client;
 
 import com.hunchee.twist.annotations.Entity;
 import com.hunchee.twist.annotations.Id;

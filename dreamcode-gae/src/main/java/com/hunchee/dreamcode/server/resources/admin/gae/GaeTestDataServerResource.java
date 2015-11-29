@@ -22,8 +22,8 @@
 package com.hunchee.dreamcode.server.resources.admin.gae;
 
 import com.google.inject.Inject;
-import com.hunchee.dreamcode.client.entity.Registration;
-import com.hunchee.dreamcode.client.entity.User;
+import com.hunchee.dreamcode.client.Registration;
+import com.hunchee.dreamcode.client.User;
 import com.hunchee.dreamcode.server.guice.SelfInjectingServerResource;
 import com.hunchee.dreamcode.server.resources.admin.TestDataResource;
 import com.hunchee.dreamcode.server.services.RegistrationService;

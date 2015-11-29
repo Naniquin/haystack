@@ -21,7 +21,7 @@
  */
 package com.hunchee.dreamcode.server.resources.admin;
 
-import com.hunchee.dreamcode.client.entity.Users;
+import com.hunchee.dreamcode.client.Users;
 import org.restlet.resource.Get;
 
 /**

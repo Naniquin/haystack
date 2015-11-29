@@ -23,7 +23,7 @@ package com.hunchee.dreamcode.client.account;
 
 import com.google.gwt.core.client.GWT;
 import com.hunchee.dreamcode.client.DreamcodeCallback;
-import com.hunchee.dreamcode.client.entity.Registration;
+import com.hunchee.dreamcode.client.Registration;
 import com.hunchee.dreamcode.client.proxy.AccountResourceProxy;
 import com.hunchee.dreamcode.client.proxy.RegistrationResourceProxy;
 import com.hunchee.dreamcode.client.proxy.TokenResourceProxy;
@@ -45,10 +45,7 @@ public class Account extends AbstractAccount {
         //Preconditions.checkNotNull(password, "Password cannot be null");
         RegistrationResourceProxy resourceProxy = GWT.create(RegistrationResourceProxy.class);
         resourceProxy.getClientResource().setReference(getServerRoot() + "signups");
-        resourceProxy.getClientResource().addQueryParameter("username", username);
-        resourceProxy.getClientResource().addQueryParameter("password", password);
-        Registration registration = new Registration(username, password);
-        resourceProxy.signup(registration, new Result<Boolean>() {
+        resourceProxy.signup(new Registration(username, password), new Result<Boolean>() {
             @Override
             public void onFailure(Throwable throwable) {
                 callback.failure(throwable);

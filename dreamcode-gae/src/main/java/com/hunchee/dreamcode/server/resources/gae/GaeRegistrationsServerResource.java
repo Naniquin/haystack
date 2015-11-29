@@ -27,9 +27,9 @@ import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.inject.Inject;
-import com.hunchee.dreamcode.client.entity.Registration;
-import com.hunchee.dreamcode.client.entity.Registrations;
-import com.hunchee.dreamcode.client.entity.User;
+import com.hunchee.dreamcode.client.Registration;
+import com.hunchee.dreamcode.client.Registrations;
+import com.hunchee.dreamcode.client.User;
 import com.hunchee.dreamcode.server.guice.SelfInjectingServerResource;
 import com.hunchee.dreamcode.server.resources.RegistrationsResource;
 import com.hunchee.dreamcode.server.services.EmailService;
@@ -72,8 +72,6 @@ public class GaeRegistrationsServerResource extends SelfInjectingServerResource
 
     @Override
     public Registration create(Registration entity) {
-        username = getQueryValue("username");
-        password = getQueryValue("password");
         if(entity == null){
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST, "Registration object is needed");
             return null;
@@ -84,10 +82,10 @@ public class GaeRegistrationsServerResource extends SelfInjectingServerResource
             return null;
         } else {
             LOG.info("registering new user");
-            String email = this.username;
-            String password = this.password;
-            //String firstName = entity.getFirstName();
-            //String lastName = entity.getLastName();
+            String email = entity.getEmail();
+            String password = entity.getPassword();
+//            String firstName = entity.getFirstName();
+//            String lastName = entity.getLastName();
             //Date birthDate = entity.getBirthDate();
             if (validateEmail(email) && isResend()) {
                 String registrationToken = registrationService.readToken(email);

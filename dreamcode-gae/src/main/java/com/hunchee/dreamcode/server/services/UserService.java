@@ -21,8 +21,8 @@
  */
 package com.hunchee.dreamcode.server.services;
 
-import com.hunchee.dreamcode.client.entity.User;
-import com.hunchee.dreamcode.client.entity.Users;
+import com.hunchee.dreamcode.client.User;
+import com.hunchee.dreamcode.client.Users;
 
 /**
  * @author <a href="mailto:kerby@dotweblabs.com">Kerby Martino</a>

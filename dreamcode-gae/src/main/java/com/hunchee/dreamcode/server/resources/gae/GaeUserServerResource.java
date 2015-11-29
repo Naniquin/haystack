@@ -22,7 +22,7 @@
 package com.hunchee.dreamcode.server.resources.gae;
 
 import com.google.inject.Inject;
-import com.hunchee.dreamcode.client.entity.User;
+import com.hunchee.dreamcode.client.User;
 import com.hunchee.dreamcode.server.guice.SelfInjectingServerResource;
 import com.hunchee.dreamcode.server.resources.UserResource;
 import com.hunchee.dreamcode.server.services.UserService;
