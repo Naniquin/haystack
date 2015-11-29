@@ -21,7 +21,6 @@
  */
 package com.hunchee.dreamcode.client.account;
 
-import com.google.common.base.Preconditions;
 import com.google.gwt.core.client.GWT;
 import com.hunchee.dreamcode.client.DreamcodeCallback;
 import com.hunchee.dreamcode.client.entity.Registration;
@@ -42,8 +41,8 @@ public class Account extends AbstractAccount {
 
     @Override
     public void signUp(String username, String password, final DreamcodeCallback<Boolean> callback) {
-        Preconditions.checkNotNull(username, "Username cannot be null");
-        Preconditions.checkNotNull(password, "Password cannot be null");
+        //Preconditions.checkNotNull(username, "Username cannot be null");
+        //Preconditions.checkNotNull(password, "Password cannot be null");
         RegistrationResourceProxy resourceProxy = GWT.create(RegistrationResourceProxy.class);
         resourceProxy.getClientResource().setReference(getServerRoot() + "signups");
         resourceProxy.getClientResource().addQueryParameter("username", username);
