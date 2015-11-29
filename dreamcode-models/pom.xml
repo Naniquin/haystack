@@ -99,6 +99,17 @@
 			<version>2.2.2</version>
 		</dependency>
 		<dependency>
+			<groupId>org.restlet.gae</groupId>
+			<artifactId>org.restlet.ext.swagger</artifactId>
+			<version>${version.restlet}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.raml</groupId>
+					<artifactId>raml-parser</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava-gwt</artifactId>
 			<version>19.0-rc2</version>
