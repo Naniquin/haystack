@@ -10,14 +10,14 @@
         <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
         <init-param>
             <param-name>org.restlet.application</param-name>
-            <param-value>com.textquo.dreamcode.server.DreamcodeApplication</param-value>
+            <param-value>com.hunchee.dreamcode.server.DreamcodeApplication</param-value>
         </init-param>
     </servlet>
 
     <!-- Catch all requests -->
     <servlet-mapping>
         <servlet-name>RestletServlet</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 
 </web-app>

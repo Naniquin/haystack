@@ -10,11 +10,11 @@
 	</parent>
 
 	<groupId>com.hunchee.dreamcode</groupId>
-	<artifactId>dreamcode-gae</artifactId>
+	<artifactId>dreamcode-models</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>Dreamcode-GAE</name>
-	<description>GAE implementation of dreamcode</description>
+	<name>Dreamcode-Models</name>
+	<description>Models - GAE implementation of dreamcode</description>
 	<url>http://www.github.com/hunchee/dreamcode</url>
 
 	<properties>
@@ -222,11 +222,6 @@
             <scope>provided</scope>
             <classifier>sources</classifier>
         </dependency-->
-		<dependency>
-			<groupId>com.hunchee.dreamcode</groupId>
-			<artifactId>dreamcode-models</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 		<dependency>
 			<groupId>com.carlosbecker</groupId>
 			<artifactId>guice-junit-test-runner</artifactId>

@@ -4,13 +4,14 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.textquo</groupId>
+    <groupId>com.hunchee.dreamcode</groupId>
     <artifactId>dreamcode</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
     <name>Dreamcode Parent POM</name>
 
     <modules>
+        <module>dreamcode-models</module>
         <module>dreamcode-gwt</module>
         <module>dreamcode-gae</module>
     </modules>
@@ -22,14 +23,14 @@
     </properties>
 
     <issueManagement>
-        <url>https://github.com/textquo/dreamcode-gwt/issues</url>
+        <url>https://github.com/hunchee/dreamcode-gwt/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
 
     <scm>
-        <url>https://github.com/textquo/dreamcode-gwt</url>
-        <connection>scm:git:git://github.com/textquo/dreamcode.git</connection>
-        <developerConnection>scm:git:git@github.com:textquo/dreamcode.git</developerConnection>
+        <url>https://github.com/hunchee/dreamcode-gwt</url>
+        <connection>scm:git:git://github.com/hunchee/dreamcode.git</connection>
+        <developerConnection>scm:git:git@github.com:hunchee/dreamcode.git</developerConnection>
     </scm>
 
     <developers>
@@ -55,5 +56,25 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <repositories>
+        <repository>
+            <id>maven-restlet</id>
+            <name>Public online Restlet repository</name>
+            <url>http://maven.restlet.com</url>
+        </repository>
+        <!-- Needed by ApiSpark due to RAML dependency-->
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Releases Repository</name>
+            <url>https://repository-master.mulesoft.org/releases/</url>
+        </repository>
+        <!-- Snapshot repository -->
+        <repository>
+            <id>oss-jfrog-artifactory-snapshots</id>
+            <name>oss-jfrog-artifactory-snapshots</name>
+            <url>http://oss.jfrog.org/artifactory/oss-snapshot-local</url>
+        </repository>
+    </repositories>
 
 </project>

@@ -2,29 +2,29 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
-	    <groupId>com.textquo</groupId>
+	    <groupId>com.hunchee.dreamcode</groupId>
 	    <artifactId>dreamcode</artifactId>
 	    <version>0.0.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.textquo.dreamcode</groupId>
+	<groupId>com.hunchee.dreamcode</groupId>
 	<artifactId>dreamcode-gwt</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>Dreamcode-GWT</name>
 	<description>GWT implementation of dreamcode</description>
-	<url>http://www.github.com/textquo/dreamcode</url>
+	<url>http://www.github.com/hunchee/dreamcode</url>
 
 	<issueManagement>
-		<url>https://github.com/textquo/dreamcode-gwt/issues</url>
+		<url>https://github.com/hunchee/dreamcode-gwt/issues</url>
 		<system>GitHub Issues</system>
 	</issueManagement>
 
 	<scm>
-		<url>https://github.com/textquo/dreamcode-gwt</url>
-		<connection>scm:git:git://github.com/textquo/dreamcode-gwt.git</connection>
-		<developerConnection>scm:git:git@github.com:textquo/dreamcode-gwt.git</developerConnection>
+		<url>https://github.com/hunchee/dreamcode-gwt</url>
+		<connection>scm:git:git://github.com/hunchee/dreamcode-gwt.git</connection>
+		<developerConnection>scm:git:git@github.com:hunchee/dreamcode-gwt.git</developerConnection>
 	</scm>
 
 	<developers>
@@ -103,6 +103,22 @@
 			<version>1.1.1</version>
 		</dependency-->
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava-gwt</artifactId>
+			<version>19.0-rc2</version>
+		</dependency>
+		<!-- Twist Object Mapping -->
+		<dependency>
+			<groupId>com.hunchee</groupId>
+			<artifactId>twist</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hunchee.dreamcode</groupId>
+			<artifactId>dreamcode-models</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>com.squareup.dagger</groupId>
 			<artifactId>dagger</artifactId>
 			<version>1.2.2</version>
@@ -155,7 +171,7 @@
 				<!--<configuration>-->
 					<!--<modules>-->
 						<!--&lt;!&ndash; gwt module inherits Core gwt module therefore both will be gwt:compiled &ndash;&gt;-->
-						<!--<module>com.textquo.dreamcode.Dreamcode</module>-->
+						<!--<module>com.hunchee.dreamcode.Dreamcode</module>-->
 					<!--</modules>-->
 					<!--<logLevel>DEBUG</logLevel>-->
 					<!--&lt;!&ndash;<logLevel>WARN</logLevel>&ndash;&gt;-->
@@ -186,6 +202,14 @@
 					</additionalClasspathElements>
 					<useManifestOnlyJar>false</useManifestOnlyJar>
 					<forkMode>always</forkMode>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -230,8 +254,8 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
 						<configuration>
-							<source>1.5</source>
-							<target>1.5</target>
+							<source>1.7</source>
+							<target>1.7</target>
 						</configuration>
 					</plugin>
 					<plugin>
