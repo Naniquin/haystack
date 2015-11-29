@@ -33,6 +33,14 @@ public class Dreamcode {
 
     private static String serverRoot = "/rest"; // e.g. http://dreamcode.appspot.com
     private static String clientToken = "";
+    private static Dreamcode instance;
+
+    public static synchronized Dreamcode getInstance(){
+        if(instance == null){
+            instance = new Dreamcode(serverRoot);
+        }
+        return instance;
+    }
 
     public Dreamcode(){}
 
