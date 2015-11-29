@@ -31,8 +31,6 @@ import org.restlet.resource.Post;
  * @since 1.0
  */
 public interface RegistrationResource {
-    @Post
-    public void register(Registration registration);
     @Get
     public void validate();
 }
