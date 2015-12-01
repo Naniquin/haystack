@@ -63,6 +63,7 @@ public class GuiceConfigModule extends AbstractModule {
         bind(UserService.class).to(GaeUserService.class).in(Scopes.SINGLETON);
         bind(RegistrationService.class).to(GaeRegistrationService.class).in(Scopes.SINGLETON);
         bind(EmailService.class).to(GaeEmailService.class).in(Scopes.SINGLETON);
+        bind(StoreService.class).to(GaeStoreService.class).in(Scopes.SINGLETON);
         bind(String.class).annotatedWith(Names.named("app")).toInstance("Dreamcode");
     }
 

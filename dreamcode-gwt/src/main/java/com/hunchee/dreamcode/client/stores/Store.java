@@ -21,17 +21,21 @@
  */
 package com.hunchee.dreamcode.client.stores;
 
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.http.client.RequestCallback;
-import com.google.gwt.http.client.RequestException;
+import com.google.gwt.core.client.GWT;
+//import com.google.gwt.json.client.JSONObject;
 import com.hunchee.dreamcode.client.Routes;
 import com.hunchee.dreamcode.client.DreamcodeCallback;
+import com.hunchee.dreamcode.client.proxy.StoreResourceProxy;
 import org.restlet.client.Request;
 import org.restlet.client.Response;
 import org.restlet.client.Uniform;
-import org.restlet.client.data.MediaType;
+import org.restlet.client.data.ChallengeResponse;
+import org.restlet.client.data.ChallengeScheme;
 import org.restlet.client.data.Status;
+import org.restlet.client.ext.json.JsonRepresentation;
 import org.restlet.client.resource.ClientResource;
+import org.restlet.client.resource.Result;
+
 import java.util.Map;
 
 /**
@@ -41,33 +45,37 @@ import java.util.Map;
  */
 public class Store extends AbstractStore {
     @Override
-    public void add(String type, String id, Map<String, Object> properties, final DreamcodeCallback<Boolean> callback) {
-        String url = Routes.DREAMCODE_API + Routes.PUBLIC_STORES_API + "?type=" + type + "&id=" + id;
-        ClientResource resource = new ClientResource(url);
-        resource.setOnResponse(new Uniform() {
-            public void handle(Request request, Response response) {
+    public void add(String type, String id, JsonRepresentation properties, final DreamcodeCallback<JsonRepresentation> callback) {
+        StoreResourceProxy resourceProxy = GWT.create(StoreResourceProxy.class);
+        resourceProxy.getClientResource().setReference(getServerRoot() + "accounts");
+        resourceProxy.getClientResource().setQueryValue("type", type);
+        resourceProxy.getClientResource().setQueryValue("id", id);
+        ChallengeResponse cr = new ChallengeResponse(ChallengeScheme.HTTP_OAUTH_BEARER);
+        cr.setRawValue(getClientToken());
+        resourceProxy.getClientResource().setChallengeResponse(cr);
+        resourceProxy.create(new JsonRepresentation(properties.toString()), new Result<JsonRepresentation>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                callback.failure(caught);
+            }
+            @Override
+            public void onSuccess(JsonRepresentation result) {
                 try {
-                    Status status = response.getStatus();
-                    if (!Status.isError(status.getCode())) {
-                        String jsonResponse = response.getEntity().getText();
-                        callback.success(false);
-                    } else {
-                        callback.failure(new Throwable("Error: " + status.getCode()));
-                    }
-                } catch (Exception e) {
-                    callback.failure(new Throwable(e.getMessage()));
+                    callback.success(result);
+                } catch (Exception e){
+
                 }
             }
         });
     }
 
     @Override
-    public void find(String type, String id, DreamcodeCallback<Map<String, Object>> callback) {
+    public void find(String type, String id, DreamcodeCallback<JsonRepresentation> callback) {
 
     }
 
     @Override
-    public void findOrAdd(String type, String id, Map<String, Object> properties, DreamcodeCallback<Map<String, Object>> callback) {
+    public void findOrAdd(String type, String id, JsonRepresentation properties, DreamcodeCallback<Map<String, Object>> callback) {
 
     }
 
@@ -77,12 +85,12 @@ public class Store extends AbstractStore {
     }
 
     @Override
-    public void update(String type, String id, Map<String, Object> changedProperties, DreamcodeCallback<Map<String, Object>> callback) {
+    public void update(String type, String id, JsonRepresentation changedProperties, DreamcodeCallback<Map<String, Object>> callback) {
 
     }
 
     @Override
-    public void updateAll(String type, String id, Map<String, Object> updateObject, DreamcodeCallback<Map<String, Object>> callback) {
+    public void updateAll(String type, String id, JsonRepresentation updateObject, DreamcodeCallback<Map<String, Object>> callback) {
 
     }
 

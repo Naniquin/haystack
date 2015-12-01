@@ -21,8 +21,10 @@
  */
 package com.hunchee.dreamcode.client.stores;
 
+import com.hunchee.dreamcode.client.AbstractDreamcode;
 import com.hunchee.dreamcode.client.Dreamcode;
 import com.hunchee.dreamcode.client.DreamcodeCallback;
+import org.restlet.client.ext.json.JsonRepresentation;
 
 import java.util.Map;
 
@@ -31,13 +33,13 @@ import java.util.Map;
  * @version 1.0
  * @since 1.0
  */
-public abstract class AbstractStore {
-    public abstract void add(String type, String id, Map<String, Object> properties, final DreamcodeCallback<Boolean> callback);
-    public abstract void find(String type, String id, final DreamcodeCallback<Map<String,Object>> callback);
-    public abstract void findOrAdd(String type, String id, Map<String, Object> properties, final DreamcodeCallback<Map<String,Object>> callback);
+public abstract class AbstractStore extends AbstractDreamcode {
+    public abstract void add(String type, String id, JsonRepresentation properties, final DreamcodeCallback<JsonRepresentation> callback);
+    public abstract void find(String type, String id, final DreamcodeCallback<JsonRepresentation> callback);
+    public abstract void findOrAdd(String type, String id, JsonRepresentation properties, final DreamcodeCallback<Map<String,Object>> callback);
     public abstract void findAll(String type);
-    public abstract void update(String type, String id, Map<String,Object> changedProperties, final DreamcodeCallback<Map<String,Object>> callback);
-    public abstract void updateAll(String type, String id, Map<String,Object> updateObject, final DreamcodeCallback<Map<String,Object>> callback);
+    public abstract void update(String type, String id, JsonRepresentation changedProperties, final DreamcodeCallback<Map<String,Object>> callback);
+    public abstract void updateAll(String type, String id, JsonRepresentation updateObject, final DreamcodeCallback<Map<String,Object>> callback);
     public abstract void remove(String type, String id, final DreamcodeCallback<Boolean> callback);
     public abstract void removeAll(String type, final DreamcodeCallback<Boolean> callback);
 }
