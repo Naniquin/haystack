@@ -21,7 +21,7 @@
  */
 package com.hunchee.dreamcode.client.proxy;
 
-import org.restlet.client.representation.Representation;
+import org.restlet.client.ext.json.JsonRepresentation;
 import org.restlet.client.resource.*;
 
 /**
@@ -31,11 +31,11 @@ import org.restlet.client.resource.*;
  */
 public interface StoreResourceProxy extends ClientProxy {
     @Post
-    public void create(Result<Representation> result);
+    public void create(JsonRepresentation json, Result<JsonRepresentation> result);
     @Get
-    public Representation get();
+    public JsonRepresentation get();
     @Put
-    public void update(Result<Representation> result);
+    public void update(Result<JsonRepresentation> result);
     @Delete
     public void remove();
 }

@@ -21,12 +21,15 @@
  */
 package com.hunchee.dreamcode.server.services;
 
+import com.hunchee.dreamcode.client.GenericJson;
+
 /**
  * @author <a href="mailto:kerby@dotweblabs.com">Kerby Martino</a>
  * @version 1.0
  * @since 1.0
  */
 public interface StoreService {
-    public void add(String type, String jsonObject);
-    public void update(String type, String id, String jsonObject);
+    public void add(GenericJson json);
+    public void update(GenericJson json);
+    public GenericJson get(String id);
 }

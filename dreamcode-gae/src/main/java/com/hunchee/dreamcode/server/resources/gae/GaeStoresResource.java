@@ -21,19 +21,83 @@
  */
 package com.hunchee.dreamcode.server.resources.gae;
 
+import com.google.common.base.Preconditions;
+import com.google.inject.Inject;
+import com.hunchee.dreamcode.client.GenericJson;
+import com.hunchee.dreamcode.client.User;
 import com.hunchee.dreamcode.server.guice.SelfInjectingServerResource;
-import org.restlet.representation.Representation;
-import org.restlet.resource.Get;
-import org.restlet.resource.ServerResource;
+import com.hunchee.dreamcode.server.resources.StoresResource;
+import com.hunchee.dreamcode.server.services.StoreService;
+import com.hunchee.dreamcode.server.services.UserService;
+import com.hunchee.dreamcode.server.services.WebTokenService;
+import com.hunchee.dreamcode.server.utils.JSONUtil;
+import org.json.JSONObject;
+import org.restlet.data.Status;
+import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.util.Series;
+
+import java.util.Map;
 
 /**
  * @author <a href="mailto:kerby@dotweblabs.com">Kerby Martino</a>
  * @version 1.0
  * @since 1.0
  */
-public class GaeStoresResource extends SelfInjectingServerResource {
-    @Get("json")
-    public Representation find(Representation entity){
-        throw new RuntimeException("Not yet implemented");
+public class GaeStoresResource extends SelfInjectingServerResource
+    implements StoresResource {
+
+    @Inject
+    StoreService storeService;
+
+    @Inject
+    WebTokenService webTokenService;
+
+    @Inject
+    UserService userService;
+
+    String clientToken;
+
+    String type;
+
+    String id;
+
+    @Override
+    protected void doInit() {
+        super.doInit();
+        Series headers = (Series) getRequestAttributes().get("org.restlet.http.headers");
+        clientToken = headers.getFirstValue("Authorization").replaceFirst("Bearer ","");
     }
+
+    @Override
+    public JsonRepresentation create(JsonRepresentation representation) {
+        String id = getQueryValue("id");
+        String type = getQueryValue("type");
+        try {
+            Preconditions.checkNotNull(id, "Id cannot be null");
+            Preconditions.checkNotNull(id, "Type cannot be null");
+            Long longId = Long.valueOf(id);
+            Long userId = webTokenService.readUserIdFromToken(clientToken);
+            User user = userService.read(userId);
+            Preconditions.checkNotNull(user, "No associated with token given: " + clientToken);
+            JSONObject object = representation.getJsonObject();
+            Map map = JSONUtil.parse(object);
+            GenericJson persistence  = new GenericJson(longId, type, map, user);
+            storeService.add(persistence);
+        } catch (NumberFormatException e){
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+        } catch (NullPointerException e){
+            setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+            e.printStackTrace();
+        } catch (Exception e){
+            setStatus(Status.SERVER_ERROR_INTERNAL);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public JsonRepresentation list() {
+        return null;
+    }
+
 }
