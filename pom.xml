@@ -4,16 +4,16 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hunchee.dreamcode</groupId>
-    <artifactId>dreamcode</artifactId>
+    <groupId>com.hunchee.haystack</groupId>
+    <artifactId>haystack</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
-    <name>Dreamcode Parent POM</name>
+    <name>haystack Parent POM</name>
 
     <modules>
-        <module>dreamcode-models</module>
-        <module>dreamcode-gwt</module>
-        <module>dreamcode-gae</module>
+        <module>haystack-models</module>
+        <module>haystack-gwt</module>
+        <module>haystack-gae</module>
     </modules>
 
     <properties>
@@ -23,14 +23,14 @@
     </properties>
 
     <issueManagement>
-        <url>https://github.com/hunchee/dreamcode-gwt/issues</url>
+        <url>https://github.com/hunchee/haystack-gwt/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
 
     <scm>
-        <url>https://github.com/hunchee/dreamcode-gwt</url>
-        <connection>scm:git:git://github.com/hunchee/dreamcode.git</connection>
-        <developerConnection>scm:git:git@github.com:hunchee/dreamcode.git</developerConnection>
+        <url>https://github.com/hunchee/haystack-gwt</url>
+        <connection>scm:git:git://github.com/hunchee/haystack.git</connection>
+        <developerConnection>scm:git:git@github.com:hunchee/haystack.git</developerConnection>
     </scm>
 
     <developers>
